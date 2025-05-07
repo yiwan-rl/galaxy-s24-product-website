@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+    <meta charset=\"UTF-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    <title>24 - The Number App</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #e74c3c;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-number {
+            background: var(--primary-color);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            transition: var(--transition);
+        }
+
+        .logo:hover .logo-number {
+            transform: rotate(360deg);
+            background: var(--secondary-color);
+        }
+
+        nav {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            box-shadow: var(--shadow);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            text-decoration: none;
+            margin: 0.5rem 0;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #27ae60;
+        }
+
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
+
+        .btn-accent:hover {
+            background-color: #c0392b;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .fact-box {
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .fact-box:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .fact-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .fact-box:hover .fact-number {
+            color: white;
+        }
+
+        .fact-text {
+            margin-top: 1rem;
+        }
+
+        .chart-container {
+            height: 300px;
+            position: relative;
+            margin: 1.5rem 0;
+        }
+
+        .bar {
+            position: absolute;
+            bottom: 0;
+            width: 40px;
+            background-color: var(--primary-color);
+            border-radius: 5px 5px 0 0;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .bar:hover {
+            background-color: var(--secondary-color);
+            transform: scaleY(1.05);
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -25px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        tr {
+            transition: var(--transition);
+        }
+
+        tr:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        .calculator {
+            max-width: 300px;
+            margin: 0 auto;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .calculator-display {
+            background-color: white;
+            padding: 1rem;
+            text-align: right;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .calculator-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calc-btn {
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .calc-btn:hover {
+            transform: scale(1.05);
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .calc-btn-operator {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .calc-btn-equals {
+            background-color: var(--accent-color);
+            color: white;
+            grid-column: span 2;
+        }
+
+        .clock {
+            font-size: 3rem;
+            text-align: center;
+            margin: 1.5rem 0;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .countdown-box {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            min-width: 80px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .countdown-box:hover {
+            transform: scale(1.1);
+            background-color: var(--primary-color);
+        }
+
+        .countdown-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .countdown-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .social-links {
+            margin: 1.5rem 0;
+        }
+
+        .social-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            margin: 0 0.5rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+            background-color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .countdown {
+                flex-wrap: wrap;
+            }
+
+            .countdown-box {
+                min-width: 60px;
+            }
+
+            .chart-container {
+                height: 200px;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .logo-number {
+                width: 50px;
+                height: 50px;
+            }
+
+            nav ul li {
+                margin: 0.3rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class=\"logo\">
+            <div class=\"logo-number\">24</div>
+            <div>Twenty Four</div>
+        </div>
+        <p>Exploring the fascinating world of the number 24</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href=\"#facts\">Facts</a></li>
+            <li><a href=\"#calculator\">Calculator</a></li>
+            <li><a href=\"#clock\">Clock</a></li>
+            <li><a href=\"#charts\">Charts</a></li>
+            <li><a href=\"#tables\">Tables</a></li>
+            <li><a href=\"#countdown\">Countdown</a></li>
+        </ul>
+    </nav>
+
+    <div class=\"container\">
+        <section id=\"facts\" class=\"section\">
+            <h2 class=\"section-title\">24 Facts</h2>
+            <div class=\"grid\">
+                <div class=\"fact-box\">
+                    <div class=\"fact-number\">24</div>
+                    <div class=\"fact-text\">Hours in a day</div>
+                </div>
+                <div class=\"fact-box\">
+                    <div class=\"fact-number\">24</div>
+                    <div class=\"fact-text\">Carats in pure gold</div>
+                </div>
+                <div class=\"fact-box\">
+                    <div class=\"fact-number\">24</div>
+                    <div class=\"fact-text\">Frames per second in film</div>
+                </div>
+            </div>
+            <div class=\"card\">
+                <h3 class=\"card-title\">Mathematical Properties</h3>
+                <p>24 is a highly composite number with 8 divisors: 1, 2, 3, 4, 6, 8, 12, and 24. It's also a factorial: 4! = 24.</p>
+                <button class=\"btn\" id=\"moreFactsBtn\">Show More Facts</button>
+                <div id=\"moreFacts\" style=\"display: none; margin-top: 1rem;\">
+                    <p>24 is also the atomic number of chromium, and there are 24 major and minor keys in Western music (12 major and 12 minor).</p>
+                </div>
+            </div>
+        </section>
+
+        <section id=\"calculator\" class=\"section\">
+            <h2 class=\"section-title\">24 Calculator</h2>
+            <p>Try to make 24 using the four numbers and basic operations (+, -, *, /).</p>
+            <div class=\"calculator\">
+                <div class=\"calculator-display\" id=\"calcDisplay\">0</div>
+                <div class=\"calculator-buttons\">
+                    <button class=\"calc-btn\">7</button>
+                    <button class=\"calc-btn\">8</button>
+                    <button class=\"calc-btn\">9</button>
+                    <button class=\"calc-btn calc-btn-operator\">/</button>
+                    <button class=\"calc-btn\">4</button>
+                    <button class=\"calc-btn\">5</button>
+                    <button class=\"calc-btn\">6</button>
+                    <button class=\"calc-btn calc-btn-operator\">*</button>
+                    <button class=\"calc-btn\">1</button>
+                    <button class=\"calc-btn\">2</button>
+                    <button class=\"calc-btn\">3</button>
+                    <button class=\"calc-btn calc-btn-operator\">-</button>
+                    <button class=\"calc-btn\">0</button>
+                    <button class=\"calc-btn\">.</button>
+                    <button class=\"calc-btn calc-btn-operator\">+</button>
+                    <button class=\"calc-btn\" id=\"clearBtn\">C</button>
+                    <button class=\"calc-btn calc-btn-equals\" id=\"equalsBtn\">=</button>
+                    <button class=\"calc-btn\" id=\"check24Btn\">Check 24</button>
+                </div>
+            </div>
+            <div class=\"card\" style=\"margin-top: 1.5rem;\">
+                <h3 class=\"card-title\">24 Game</h3>
+                <p>The 24 Game is a mathematical card game where the objective is to find a way to manipulate four numbers to get 24.</p>
+                <button class=\"btn btn-secondary\" id=\"generateNumbersBtn\">Generate Random Numbers</button>
+                <div id=\"randomNumbers\" style=\"margin-top: 1rem; text-align: center; font-size: 1.5rem;\"></div>
+            </div>
+        </section>
+
+        <section id=\"clock\" class=\"section\">
+            <h2 class=\"section-title\">24-Hour Clock</h2>
+            <div class=\"clock\" id=\"digitalClock\">00:00:00</div>
+            <div style=\"text-align: center;\">
+                <button class=\"btn\" id=\"toggleClockBtn\">Switch to 12-Hour Format</button>
+            </div>
+            <div class=\"card\">
+                <h3 class=\"card-title\">Time Around the World</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>City</th>
+                            <th>Current Time</th>
+                            <th>Time Zone</th>
+                        </tr>
+                    </thead>
+                    <tbody id=\"worldClockTable\">
+                        <!-- Filled by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id=\"charts\" class=\"section\">
+            <h2 class=\"section-title\">24 in Charts</h2>
+            <div class=\"card\">
+                <h3 class=\"card-title\">Hours in a Day Distribution</h3>
+                <div class=\"chart-container\" id=\"hourlyChart\">
+                    <!-- Bars will be added by JavaScript -->
+                </div>
+            </div>
+            <div class=\"card\">
+                <h3 class=\"card-title\">24 in Context</h3>
+                <div class=\"chart-container\" id=\"comparisonChart\">
+                    <!-- Bars will be added by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <section id=\"tables\" class=\"section\">
+            <h2 class=\"section-title\">24 in Tables</h2>
+            <div class=\"card\">
+                <h3 class=\"card-title\">Divisors of 24</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Divisor</th>
+                            <th>Result</th>
+                            <th>Is Prime?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>24</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>12</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>8</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>6</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>4</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>3</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>2</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td>24</td>
+                            <td>1</td>
+                            <td>No</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class=\"card\">
+                <h3 class=\"card-title\">24 in Different Number Systems</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Number System</th>
+                            <th>Representation of 24</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Binary</td>
+                            <td>11000</td>
+                        </tr>
+                        <tr>
+                            <td>Octal</td>
+                            <td>30</td>
+                        </tr>
+                        <tr>
+                            <td>Decimal</td>
+                            <td>24</td>
+                        </tr>
+                        <tr>
+                            <td>Hexadecimal</td>
+                            <td>18</td>
+                        </tr>
+                        <tr>
+                            <td>Roman Numeral</td>
+                            <td>XXIV</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id=\"countdown\" class=\"section\">
+            <h2 class=\"section-title\">Countdown to 24:00</h2>
+            <div class=\"countdown\">
+                <div class=\"countdown-box\">
+                    <div class=\"countdown-value\" id=\"countHours\">00</div>
+                    <div class=\"countdown-label\">Hours</div>
+                </div>
+                <div class=\"countdown-box\">
+                    <div class=\"countdown-value\" id=\"countMinutes\">00</div>
+                    <div class=\"countdown-label\">Minutes</div>
+                </div>
+                <div class=\"countdown-box\">
+                    <div class=\"countdown-value\" id=\"countSeconds\">00</div>
+                    <div class=\"countdown-label\">Seconds</div>
+                </div>
+            </div>
+            <div class=\"card\">
+                <h3 class=\"card-title\">Custom Countdown</h3>
+                <p>Set a custom countdown timer (in seconds):</p>
+                <div style=\"display: flex; gap: 10px; align-items: center; margin: 1rem 0;\">
+                    <input type=\"number\" id=\"customCountdownInput\" min=\"1\" max=\"86400\" value=\"24\" style=\"padding: 0.8rem; border-radius: 5px; border: 1px solid #ddd; font-size: 1rem; width: 100px;\">
+                    <button class=\"btn btn-secondary\" id=\"startCustomCountdownBtn\">Start</button>
+                    <button class=\"btn btn-accent\" id=\"resetCustomCountdownBtn\">Reset</button>
+                </div>
+                <div id=\"customCountdownDisplay\" style=\"font-size: 2rem; font-weight: bold; margin-top: 1rem; text-align: center;\">24</div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2023 Twenty Four - All about the number 24</p>
+        <div class=\"social-links\">
+            <a href=\"#\" class=\"social-icon\">f</a>
+            <a href=\"#\" class=\"social-icon\">t</a>
+            <a href=\"#\" class=\"social-icon\">in</a>
+            <a href=\"#\" class=\"social-icon\">ig</a>
+        </div>
+        <p>Made with ❤️ and JavaScript</p>
+    </footer>
+
+    <script>
+        // Facts Section
+        document.getElementById('moreFactsBtn').addEventListener('click', function() {
+            const moreFactsDiv = document.getElementById('moreFacts');
+            if (moreFactsDiv.style.display === 'none') {
+                moreFactsDiv.style.display = 'block';
+                this.textContent = 'Show Less';
+            } else {
+                moreFactsDiv.style.display = 'none';
+                this.textContent = 'Show More Facts';
+            }
+        });
+
+        // Calculator
+        const calcDisplay = document.getElementById('calcDisplay');
+        let currentCalcValue = '0';
+        let isNewCalculation = true;
+
+        document.querySelectorAll('.calculator-buttons .calc-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const value = this.textContent;
+
+                if (value === 'C') {
+                    currentCalcValue = '0';
+                    isNewCalculation = true;
+                } else if (value === '=') {
+                    try {
+                        currentCalcValue = eval(currentCalcValue).toString();
+                    } catch (e) {
+                        currentCalcValue = 'Error';
+                    }
+                    isNewCalculation = true;
+                } else if (value === 'Check 24') {
+                    try {
+                        const result = eval(currentCalcValue);
+                        if (result === 24) {
+                            alert('Congratulations! You made 24!');
+                        } else {
+                            alert(`Your result is ${result}, not 24. Try again!`);
+                        }
+                    } catch (e) {
+                        alert('Invalid expression. Try again.');
+                    }
+                } else {
+                    if (isNewCalculation && !isNaN(value) || value === '.') {
+                        currentCalcValue = value === '.' ? '0.' : value;
+                        isNewCalculation = false;
+                    } else if (isNewCalculation && ['+', '-', '*', '/'].includes(value)) {
+                        currentCalcValue = currentCalcValue + value;
+                        isNewCalculation = false;
+                    } else {
+                        currentCalcValue = currentCalcValue === '0' && value !== '.' ? value : currentCalcValue + value;
+                    }
+                }
+
+                calcDisplay.textContent = currentCalcValue;
+            });
+        });
+
+        // Generate Random Numbers for 24 Game
+        document.getElementById('generateNumbersBtn').addEventListener('click', function() {
+            const randomNumbers = [];
+            for (let i = 0; i < 4; i++) {
+                randomNumbers.push(Math.floor(Math.random() * 9) + 1);
+            }
+            document.getElementById('randomNumbers').textContent = randomNumbers.join(' • ');
+        });
+
+        // Digital Clock
+        let is24HourFormat = true;
+        
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            
+            let displayHours;
+            let amPm = '';
+            
+            if (is24HourFormat) {
+                displayHours = hours.toString().padStart(2, '0');
+            } else {
+                amPm = hours >= 12 ? ' PM' : ' AM';
+                displayHours = (hours % 12 || 12).toString().padStart(2, '0');
+            }
+            
+            document.getElementById('digitalClock').textContent = `${displayHours}:${minutes}:${seconds}${amPm}`;
+        }
+        
+        setInterval(updateClock, 1000);
+        updateClock();
+        
+        document.getElementById('toggleClockBtn').addEventListener('click', function() {
+            is24HourFormat = !is24HourFormat;
+            this.textContent = is24HourFormat ? 'Switch to 12-Hour Format' : 'Switch to 24-Hour Format';
+            updateClock();
+        });
+
+        // World Clock Table
+        function updateWorldClock() {
+            const cities = [
+                { name: 'New York', offset: -5, dst: true },
+                { name: 'London', offset: 0, dst: true },
+                { name: 'Tokyo', offset: 9, dst: false },
+                { name: 'Sydney', offset: 10, dst: true }
+            ];
+            
+            const now = new Date();
+            const tableBody = document.getElementById('worldClockTable');
+            tableBody.innerHTML = '';
+            
+            cities.forEach(city => {
+                const row = document.createElement('tr');
+                
+                const cityCell = document.createElement('td');
+                cityCell.textContent = city.name;
+                
+                const timeCell = document.createElement('td');
+                const cityTime = new Date(now);
+                let offset = city.offset;
+                
+                // Simple DST approximation (not accurate for all regions)
+                if (city.dst && (now.getMonth() > 2 && now.getMonth() < 10)) {
+                    offset += 1;
+                }
+                
+                cityTime.setHours(now.getUTCHours() + offset);
+                timeCell.textContent = cityTime.toLocaleTimeString();
+                
+                const zoneCell = document.createElement('td');
+                zoneCell.textContent = `UTC${offset >= 0 ? '+' : ''}${offset}`;
+                
+                row.appendChild(cityCell);
+                row.appendChild(timeCell);
+                row.appendChild(zoneCell);
+                
+                tableBody.appendChild(row);
+            });
+        }
+        
+        setInterval(updateWorldClock, 1000);
+        updateWorldClock();
+
+        // Charts
+        function createHourlyChart() {
+            const chartContainer = document.getElementById('hourlyChart');
+            chartContainer.innerHTML = '';
+            
+            // Sample data for hour activity
+            const hourlyData = [
+                { hour: '00:00', value: 5 },
+                { hour: '04:00', value: 2 },
+                { hour: '08:00', value: 15 },
+                { hour: '12:00', value: 18 },
+                { hour: '16:00', value: 20 },
+                { hour: '20:00', value: 12 }
+            ];
+            
+            const maxValue = Math.max(...hourlyData.map(item => item.value));
+            const containerWidth = chartContainer.offsetWidth;
+            const barWidth = Math.min(40, (containerWidth / hourlyData.length) - 10);
+            const spacing = (containerWidth - (barWidth * hourlyData.length)) / (hourlyData.length + 1);
+            
+            hourlyData.forEach((item, index) => {
+                const bar = document.createElement('div');
+                bar.className = 'bar';
+                
+                const height = (item.value / maxValue) * 100;
+                bar.style.height = `${height}%`;
+                bar.style.left = `${spacing + (index * (barWidth + spacing))}px`;
+                bar.style.width = `${barWidth}px`;
+                
+                const label = document.createElement('div');
+                label.className = 'bar-label';
+                label.textContent = item.hour;
+                bar.appendChild(label);
+                
+                const value = document.createElement('div');
+                value.className = 'bar-value';
+                value.textContent = item.value;
+                bar.appendChild(value);
+                
+                bar.addEventListener('click', function() {
+                    alert(`Activity at ${item.hour}: ${item.value} units`);
+                });
+                
+                chartContainer.appendChild(bar);
+            });
+        }
+        
+        function createComparisonChart() {
+            const chartContainer = document.getElementById('comparisonChart');
+            chartContainer.innerHTML = '';
+            
+            // Sample comparison data
+            const comparisonData = [
+                { label: '12', value: 12 },
+                { label: '24', value: 24 },
+                { label: '36', value: 36 },
+                { label: '48', value: 48 }
+            ];
+            
+            const maxValue = Math.max(...comparisonData.map(item => item.value));
+            const containerWidth = chart
